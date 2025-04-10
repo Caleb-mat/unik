@@ -1,45 +1,42 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import HomeScreen from './HomeScreen';
+import AuthScreen from './AuthScreen';
+import Suiv1 from './suiv1'
+import Suiv2 from './suiv2'
+import { RootStackParamList } from '../../types';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Suiv3 from './suiv3';
+import BonDetailScreen from './BonDetailScreen';
+import RecuDetailScreen from './RecuDetailScreen';
+import ConnectedHomeScreen from './ConnectedHomeScreen';
+import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native';
+import ProfilScreen from './ProfilScreen';
+import { View } from 'react-native';
+import ConnectedStack from './ConnectedStack';
+import CreateBonScreen from './CreateBonScreen';
+import PaymentScreen from './PaymentScreen';
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const Stack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator();
 
+
+export default function RootLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+ 
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="AuthScreen" component={AuthScreen} />
+        <Stack.Screen name="suiv1" component={Suiv1} /> 
+        <Stack.Screen name="suiv2" component={Suiv2} /> 
+        <Stack.Screen name="suiv3" component={Suiv3} />
+        <Stack.Screen name="BonDetailScreen" component={BonDetailScreen} /> 
+        <Stack.Screen name="RecuDetailScreen" component={RecuDetailScreen} /> 
+        <Stack.Screen name="ConnectedHomeScreen" component={ConnectedHomeScreen} /> 
+        <Stack.Screen name="Connected" component={ConnectedStack} />
+        <Stack.Screen name="CreateBonScreen" component={CreateBonScreen} />
+        <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+      </Stack.Navigator>
+   )
 }
